@@ -905,6 +905,7 @@ function removeContentSecurityPolicy(
       delete details.responseHeaders['content-security-policy'];
       delete details.responseHeaders['Content-Security-Policy'];
 
+      details.responseHeaders['access-control-allow-headers'] = ['*'];
       if (
         !details.responseHeaders['access-control-allow-origin'] &&
         !details.responseHeaders['Access-Control-Allow-Origin']
