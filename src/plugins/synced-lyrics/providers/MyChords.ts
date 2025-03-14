@@ -42,13 +42,20 @@ export class MyChords implements LyricProvider {
       const chords = Array.from(div.querySelectorAll('.b-accord__symbol'))
         .map((span) => span.textContent)
         .join(' ');
-      const text = Array.from(div.querySelectorAll('.subline'))
-        .filter((span) => !span.querySelector('.b-accord__symbol'))
-        .map((span) => span.textContent?.trim())
-        .join(' ');
-
-      return chords ? `[${chords}]\n${text}` : '';
+    
+      let text = '';
+      if (div.classList.contains('single-line')) {
+        text = div.textContent?.trim() ?? '';
+      } else {
+        text = Array.from(div.querySelectorAll('.subline'))
+          .filter((span) => !span.querySelector('.b-accord__symbol'))
+          .map((span) => span.textContent?.trim())
+          .join(' ');
+      }
+    
+      return chords ? `[${chords}]\n${text}` : text;
     }).join('\n') ?? '';
+    
 
     return {
       title: songName,
